@@ -26,7 +26,6 @@ sql = """
     """
 
 df = client.query(sql).to_dataframe()
-df2 = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
 
 mes = st.selectbox(
     'Seleccione un mes',
@@ -38,6 +37,7 @@ quincena = st.selectbox(
     list(set(df.Quincena)))
 st.write('Seleccionaste:', quincena)
 
-df_final = df2[(df2['Mes'] == mes) & (df2['Quincena'] == quincena)]
+df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena)]
+df2 = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
 
 st.dataframe(df_final)
