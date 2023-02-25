@@ -46,7 +46,7 @@ st.write('Seleccionaste:', quincena)
 
 #Cedula text filter
 num_documento = st.text_input("Ingrese el número de documento a consultar", '')
-st.write('Seleccionaste:', num_documento)
+st.write('Ingresaste:', num_documento)
 
 #Applying filters to dataframes
 df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento'] == num_documento)]
