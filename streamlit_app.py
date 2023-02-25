@@ -52,5 +52,5 @@ df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento']
 data = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
 
 AgGrid(data=data, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS)
-st.dataframe(data)
+#st.dataframe(data)
 
