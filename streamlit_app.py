@@ -7,7 +7,14 @@ from PIL import Image
 from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
 
 image = Image.open('pictures/logo.png')
-st.image(image)
+
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.write(' ')
+with col2:
+    st.image(image)
+with col3:
+    st.write(' ')
 
 # Create API client.
 credentials = service_account.Credentials.from_service_account_info(
