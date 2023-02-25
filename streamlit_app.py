@@ -27,6 +27,7 @@ sql = """
 
 #Transform query to pandas dataframe
 df = client.query(sql).to_dataframe()
+df = df['Num_Documento'].astype('string')
 
 #Mes filter
 mes = st.selectbox(
