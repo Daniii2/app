@@ -30,7 +30,7 @@ df2 = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
 
 option = st.selectbox(
     'Seleccione una quincena',
-    list(df.Quincena))
+    list(set(df.Quincena)))
 
 st.write('Seleccionaste:', option)
 
