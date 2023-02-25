@@ -2,4 +2,5 @@
 db-dtypes
 pandas
 numpy
+streamlit
 google-cloud-bigquery==3.5.0
