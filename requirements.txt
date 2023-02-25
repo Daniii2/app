@@ -1,5 +1,4 @@
 # requirements.txt
-st_aggrid
 db-dtypes
 pandas
 numpy
