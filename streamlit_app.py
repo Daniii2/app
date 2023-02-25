@@ -3,6 +3,10 @@
 import streamlit as st
 from google.oauth2 import service_account
 from google.cloud import bigquery
+from PIL import Image
+
+image = Image.open('/pictures/logo.png')
+st.image(image, caption='Covmaritex logo')
 
 # Create API client.
 credentials = service_account.Credentials.from_service_account_info(
