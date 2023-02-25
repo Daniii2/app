@@ -25,18 +25,25 @@ sql = """
     ON C.Manual = E.Nombre_Completo
     """
 
+#Transform query to pandas dataframe
 df = client.query(sql).to_dataframe()
 
+#Mes filter
 mes = st.selectbox(
     'Seleccione un mes',
     list(set(df.Mes)))
 st.write('Seleccionaste:', mes)
 
+#Quincena filter
 quincena = st.selectbox(
     'Seleccione una quincena',
     list(set(df.Quincena)))
 st.write('Seleccionaste:', quincena)
 
+#Cedula text filter
+user_input = st.text_input("Ingrese el número de documento a consultar", '')
+
+#Applying filters to dataframes
 df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena)]
 df2 = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
 
