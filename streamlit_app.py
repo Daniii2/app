@@ -27,7 +27,7 @@ sql = """
 
 df = client.query(sql).to_dataframe()
 df2 = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
-df2['Valor_Unidad'] = df2['Valor_Unidad'].round()
-df2['Valor_Total'] = df2['Valor_Total'].round()
+df2['Valor_Unidad'] = df2['Valor_Unidad'].round(0)
+df2['Valor_Total'] = df2['Valor_Total'].round(0)
 
 st.dataframe(df2)
