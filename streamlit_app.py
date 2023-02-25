@@ -52,6 +52,5 @@ st.write('Ingresaste:', num_documento)
 df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento'] == num_documento)]
 data = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
 
-#AgGrid(data=data, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS)
 st.dataframe(data)
 
