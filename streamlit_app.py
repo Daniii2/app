@@ -40,4 +40,4 @@ st.write('Seleccionaste:', quincena)
 
 df_final = df2[(df2['Mes'] == mes) & (df2['Quincena'] == quincena)]
 
-st.dataframe(df2)
+st.dataframe(df_final)
