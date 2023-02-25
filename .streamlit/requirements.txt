@@ -1,3 +1,0 @@
-# requirements.txt
-google-cloud-bigquery==1.42.0
-gclient-service-account-auth
