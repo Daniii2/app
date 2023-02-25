@@ -34,18 +34,18 @@ df['Valor_Total'] = df['Valor_Total'].astype('int64')
 
 #Mes filter
 mes = st.selectbox(
-    'Seleccione un mes',
+    '#Seleccione un mes',
     list(set(df.Mes)))
 st.write('Seleccionaste:', mes)
 
 #Quincena filter
 quincena = st.selectbox(
-    'Seleccione una quincena',
+    '#Seleccione una quincena',
     list(set(df.Quincena)))
 st.write('Seleccionaste:', quincena)
 
 #Cedula text filter
-num_documento = st.text_input("Ingrese el número de documento a consultar", '')
+num_documento = st.text_input("#Ingrese el número de documento a consultar", '')
 st.write('Ingresaste:', num_documento)
 
 #Applying filters to dataframes
