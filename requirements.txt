@@ -1,2 +1,4 @@
 # requirements.txt
+pandas
+numpy
 google-cloud-bigquery==3.5.0
