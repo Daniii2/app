@@ -26,5 +26,6 @@ sql = """
     """
 
 df = client.query(sql).to_dataframe()
+df2 = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
 
-st.dataframe(df)
+st.dataframe(df2)
