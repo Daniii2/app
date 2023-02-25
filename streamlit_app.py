@@ -4,6 +4,7 @@ import streamlit as st
 from google.oauth2 import service_account
 from google.cloud import bigquery
 from PIL import Image
+from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
 
 image = Image.open('pictures/logo.png')
 st.image(image)
@@ -51,3 +52,4 @@ df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento']
 data = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
 
 st.dataframe(data)
+AgGrid(data=data, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS)
