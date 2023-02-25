@@ -1,4 +1,5 @@
 # requirements.txt
+db-types
 pandas
 numpy
 google-cloud-bigquery==3.5.0
