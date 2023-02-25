@@ -11,15 +11,9 @@ credentials = service_account.Credentials.from_service_account_info(
 client = bigquery.Client(credentials=credentials)
 
 # Perform query.
-# Uses st.cache_data to only rerun when the query changes or after 10 min.
+sql = """
+    SELECT * 
+    FROM `digitales-373718.covmaritex.Calidad`
+    """
 
-def run_query(query):
-    df = client.query(query).to_dataframe()
-    return df
-
-rows = run_query("SELECT * FROM `digitales-373718.covmaritex.Calidad`")
-
-print(type(rows))
-print(rows)
-
-
+df = client.query(sql).to_dataframe()
