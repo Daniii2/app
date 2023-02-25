@@ -6,20 +6,6 @@ from google.cloud import bigquery
 from PIL import Image
 from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
 
-st.markdown(
-    """
-    <style>
-        button[title^=Exit]+div [data-testid=stImage]{
-            text-align: center;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
-        }
-    </style>
-    """, unsafe_allow_html=True
-)
-
 image = Image.open('pictures/logo.png')
 st.image(image)
 
