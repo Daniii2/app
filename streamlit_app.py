@@ -26,3 +26,5 @@ rows = run_query("SELECT word FROM `bigquery-public-data.samples.shakespeare` LI
 st.write("Some wise words from Shakespeare:")
 for row in rows:
     st.write("✍️ " + row['word'])
+    
+ #
