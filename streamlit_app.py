@@ -19,7 +19,7 @@ def run_query(query):
 
 rows = run_query("SELECT * FROM `digitales-373718.covmaritex.Calidad`")
 
-print(type(rows)
+print(type(rows))
 print(rows)
 
 
