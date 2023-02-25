@@ -6,6 +6,8 @@ from google.cloud import bigquery
 from PIL import Image
 from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
 
+st.write('# Nómina Manuales Covmaritex')
+
 image = Image.open('pictures/logo.png')
 st.image(image)
 
