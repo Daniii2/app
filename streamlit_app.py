@@ -40,4 +40,4 @@ st.write('Seleccionaste:', quincena)
 df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena)]
 df2 = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
 
-st.dataframe(df_final)
+st.dataframe(df2)
