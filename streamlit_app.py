@@ -17,4 +17,5 @@ sql = """
     """
 
 df = client.query(sql).to_dataframe()
-print(df.head(5))
+
+st.dataframe(df)
