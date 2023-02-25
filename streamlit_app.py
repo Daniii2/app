@@ -28,10 +28,14 @@ sql = """
 df = client.query(sql).to_dataframe()
 df2 = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
 
-option = st.selectbox(
+mes = st.selectbox(
+    'Seleccione un mes',
+    list(set(df.Mes)))
+st.write('Seleccionaste:', mes)
+
+quincena = st.selectbox(
     'Seleccione una quincena',
     list(set(df.Quincena)))
-
-st.write('Seleccionaste:', option)
+st.write('Seleccionaste:', quincena)
 
 st.dataframe(df2)
