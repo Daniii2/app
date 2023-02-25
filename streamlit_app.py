@@ -61,4 +61,4 @@ hide_dataframe_row_index = """
 # Inject CSS with Markdown
 st.markdown(hide_dataframe_row_index, unsafe_allow_html=True)
 
-st.dataframe(data)
+st.dataframe(data.reset_index())
