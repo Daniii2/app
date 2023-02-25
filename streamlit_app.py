@@ -4,6 +4,7 @@ import streamlit as st
 from google.oauth2 import service_account
 from google.cloud import bigquery
 from PIL import Image
+from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
 
 image = Image.open('pictures/logo.png')
 st.image(image)
@@ -61,4 +62,5 @@ hide_dataframe_row_index = """
 # Inject CSS with Markdown
 st.markdown(hide_dataframe_row_index, unsafe_allow_html=True)
 
+AgGrid(data=data, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS)
 st.dataframe(data)
