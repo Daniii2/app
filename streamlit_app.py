@@ -47,6 +47,6 @@ num_documento = st.text_input("Ingrese el número de documento a consultar", '')
 #Applying filters to dataframes
 #df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento'] == num_documento)]
 data = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
-data = data.T.reset_index()
+data = data.reset_index()
 
 st.dataframe(data)
