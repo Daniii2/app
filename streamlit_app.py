@@ -5,7 +5,7 @@ from google.oauth2 import service_account
 from google.cloud import bigquery
 from PIL import Image
 
-image = Image.open('logo.png')
+image = Image.open('/pictures/logo.png')
 st.image(image, caption='Covmaritex logo')
 
 # Create API client.
