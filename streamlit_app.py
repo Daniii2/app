@@ -29,12 +29,16 @@ calidad['Mos'] = calidad['Mos'].astype('string')
 calidad['IDProceso'] = calidad.Mos+calidad.Proceso
 #Procesos
 procesos = pd.read_csv(p_path, sep=',', header=0)
+procesos = procesos.dropna()
 procesos['IDProceso'] = procesos['IDProceso'].astype('string')
 #Manuales
 manuales = pd.read_csv(m_path, sep=',', header=0)
 manuales['Nombre_Completo'] = manuales['Nombres']+' '+manuales['Apellidos']
 #Llegadas
 llegadas = pd.read_csv(l_path, sep=',', header=0)
+llegadas = llegadas.dropna()
+llegadas['Mos'] = llegadas['Mos'].astype('int')
+llegadas['Mos'] = llegadas['Mos'].astype('string')
 #Merge
 calidad_p = calidad.merge(procesos, how='left', left_on=['IDProceso'], right_on=['IDProceso'])
 calidad_pm = calidad_p.merge(manuales, how='left', left_on=['Manual'], right_on=['Nombre_Completo'])
