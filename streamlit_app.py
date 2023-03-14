@@ -38,7 +38,7 @@ calidad_p_m = calidad_p.merge(manuales, how='left', left_on=['Manual'], right_on
 df = calidad_p_m
 #Transformations
 df['Num_Documento'] = df['Num_Documento'].astype('string')
-df['Valor_Unidad'] = df['Valor_Unidad'].astype('int64')
+df['Valor_Unidad'] = df['Costo'].astype('int64')
 df['Valor_Total'] = df['Valor_Total'].astype('int64')
 
 #Mes filter
