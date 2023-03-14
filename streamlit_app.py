@@ -62,9 +62,9 @@ data = df.loc[:, ['Proceso_x', 'Aprobadas', 'Costo', 'Valor_Total']].rename(colu
 
 col1, col2 = st.columns(2)
 with col1:
-    st.metric(label='Aprobadas', value=data['Aprobadas'].sum().round(0))
+    st.metric(label='Aprobadas', value=data['Aprobadas'].sum().astype('int'))
 with col2:
-    st.metric(label='Valor_Total', value=data['Valor_Total'].sum().round(0))
+    st.metric(label='Valor_Total', value=data['Valor_Total'].sum().astype('int'))
 
 st.dataframe(data)
 
