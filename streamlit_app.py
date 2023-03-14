@@ -61,4 +61,5 @@ df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento']
 data = df.loc[:, ['Proceso_x', 'Aprobadas', 'Costo', 'Valor_Total']].rename(columns={'Proceso_x':'Proceso', 'Costo':'Valor_Unidad'})
 
 st.dataframe(data)
+st.table(data)
 
