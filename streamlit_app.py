@@ -1,8 +1,7 @@
 # streamlit_app.py
 
 import streamlit as st
-from google.oauth2 import service_account
-from google.cloud import bigquery
+import pandas as pd
 from PIL import Image
 from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
 
@@ -16,25 +15,28 @@ with col2:
 with col3:
     st.write(' ')
 
-# Create API client.
-credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"]
-)
-client = bigquery.Client(credentials=credentials)
+#Paths
+c_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSv0ShIcmXQ9-mN_Vr6sZGZExejKYTqs2C22iMGbCwqbI2L_g9G2I4oyAphLmGQG3DM4I75nsc0o3OK/pub?gid=0&single=true&output=csv'
+p_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR1b55YBjl3Nx619-ZxcA1HFI4I-HKNEkj1e5mF4Ou_44Zttfjn0huUCPluDRdxoeMEZAZVJgU-AqFF/pub?gid=0&single=true&output=csv'
+m_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScaT6bvHkLPpetxUalJpZiM-1CF4fH3iKEw0oM4LiE7bhOuOQZ0fvTr20yD7qHYH3mLtgtghoDGyrj/pub?gid=0&single=true&output=csv'
 
-# Perform query.
-sql = """
-    SELECT E.Num_Documento, C.*, P.Costo AS Valor_Unidad, (C.Aprobadas * P.Costo) AS Valor_Total, EXTRACT(MONTH FROM C.Fecha) AS Mes,
-    CASE WHEN EXTRACT(DAY FROM C.Fecha) <=15 THEN 'Q1' ELSE 'Q2' END AS Quincena,
-    FROM `digitales-373718.covmaritex.Calidad` AS C
-    JOIN covmaritex.Procesos AS P
-    ON C.Mos = P.Mos AND C.Proceso = P.Proceso
-    JOIN covmaritex.Empleados AS E
-    ON C.Manual = E.Nombre_Completo
-    """
-
-#Transform query to pandas dataframe
-df = client.query(sql).to_dataframe()
+#Calidad dataframe
+calidad = pd.read_csv(c_path, sep=',', header=0)
+calidad = calidad.dropna()
+calidad['Mos'] = calidad['Mos'].astype('int')
+calidad['Mos'] = calidad['Mos'].astype('string')
+calidad['IDProceso'] = calidad.Mos+calidad.Proceso
+#Procesos
+procesos = pd.read_csv(p_path, sep=',', header=0)
+procesos['IDProceso'] = procesos['IDProceso'].astype('string')
+#Manuakes
+manuales = pd.read_csv(m_path, sep=',', header=0)
+manuales['Nombre_Completo'] = manuales['Nombres']+' '+manuales['Apellidos']
+#Merge
+calidad_p = calidad.merge(procesos, how='left', left_on=['IDProceso'], right_on=['IDProceso'])
+calidad_p_m = calidad_p.merge(manuales, how='left', left_on=['Manual'], right_on=['Nombre_Completo'])
+df = calidad_p_m
+#Transformations
 df['Num_Documento'] = df['Num_Documento'].astype('string')
 df['Valor_Unidad'] = df['Valor_Unidad'].astype('int64')
 df['Valor_Total'] = df['Valor_Total'].astype('int64')
