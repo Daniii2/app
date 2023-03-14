@@ -34,13 +34,13 @@ manuales = pd.read_csv(m_path, sep=',', header=0)
 manuales['Nombre_Completo'] = manuales['Nombres']+' '+manuales['Apellidos']
 #Merge
 calidad_p = calidad.merge(procesos, how='left', left_on=['IDProceso'], right_on=['IDProceso'])
-calidad_p_m = calidad_p.merge(manuales, how='left', left_on=['Manual'], right_on=['Nombre_Completo'])
-df = calidad_p_m
+df = calidad_p.merge(manuales, how='left', left_on=['Manual'], right_on=['Nombre_Completo'])
 #Transformations
+
 df['Num_Documento'] = df['Num_Documento'].astype('string')
 df['Valor_Total'] = df['Aprobadas'] * df['Costo']
 df['Valor_Unidad'] = df['Costo']
-
+df['Proceso'] = df['proceso_x']
 #Mes filter
 mes = st.selectbox(
     'Seleccione un mes',
