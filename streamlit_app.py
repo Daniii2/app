@@ -40,7 +40,7 @@ df = calidad_p.merge(manuales, how='left', left_on=['Manual'], right_on=['Nombre
 df['Num_Documento'] = df['Num_Documento'].astype('string')
 df['Valor_Total'] = df['Aprobadas'] * df['Costo']
 df['Valor_Unidad'] = df['Costo']
-df['Proceso'] = df['proceso_x']
+
 #Mes filter
 mes = st.selectbox(
     'Seleccione un mes',
@@ -59,7 +59,7 @@ st.write('Ingresaste:', num_documento)
 
 #Applying filters to dataframes
 df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento'] == num_documento)]
-data = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
+data = df.loc[:, ['Proceso_x', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
 
 st.dataframe(data)
 
