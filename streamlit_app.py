@@ -38,6 +38,7 @@ calidad_p_m = calidad_p.merge(manuales, how='left', left_on=['Manual'], right_on
 df = calidad_p_m
 #Transformations
 df['Num_Documento'] = df['Num_Documento'].astype('string')
+df['Valor_Unidad'] = df['Costo']
 
 #Mes filter
 mes = st.selectbox(
