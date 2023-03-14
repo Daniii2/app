@@ -39,6 +39,8 @@ llegadas = pd.read_csv(l_path, sep=',', header=0)
 llegadas = llegadas.dropna()
 llegadas['Mos'] = llegadas['Mos'].astype('int')
 llegadas['Mos'] = llegadas['Mos'].astype('string')
+print('Hasta aquí todo bien')
+print(llegadas)
 #Merge
 calidad_p = calidad.merge(procesos, how='left', left_on=['IDProceso'], right_on=['IDProceso'])
 calidad_pm = calidad_p.merge(manuales, how='left', left_on=['Manual'], right_on=['Nombre_Completo'])
