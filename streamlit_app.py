@@ -60,6 +60,6 @@ st.write('Ingresaste:', num_documento)
 df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento'] == num_documento)]
 data = df.loc[:, ['Proceso_x', 'Aprobadas', 'Costo', 'Valor_Total']].rename(columns={'Proceso_x':'Proceso', 'Costo':'Valor_Unidad'})
 
-st.metric(data['Aprobadas'].sum())
+st.metric(label='Aprobadas', value=data['Aprobadas'].sum())
 st.dataframe(data)
 
