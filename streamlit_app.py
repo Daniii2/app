@@ -60,9 +60,9 @@ st.write('Ingresaste:', num_documento)
 df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento'] == num_documento)]
 data = df.loc[:, ['Proceso_x', 'Aprobadas', 'Costo', 'Valor_Total']].rename(columns={'Proceso_x':'Proceso', 'Costo':'Valor_Unidad'})
 
-data['Aprobadas'].astype('int)
-data['Valor_Unidad'].astype('int)
-data['Valor_Total'].astype('int)
+data['Aprobadas'].astype('int')
+data['Valor_Unidad'].astype('int')
+data['Valor_Total'].astype('int')
 
 st.table(data)
 
