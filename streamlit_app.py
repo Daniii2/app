@@ -39,6 +39,7 @@ df = calidad_p_m
 #Transformations
 df['Num_Documento'] = df['Num_Documento'].astype('string')
 df['Valor_Total'] = df['Aprobadas'] * df['Costo']
+df['Valor_Unidad'] = df['Costo']
 
 #Mes filter
 mes = st.selectbox(
@@ -58,7 +59,7 @@ st.write('Ingresaste:', num_documento)
 
 #Applying filters to dataframes
 df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento'] == num_documento)]
-data = df.loc[:, ['Proceso', 'Aprobadas', 'Costo', 'Valor_Total']]
+data = df.loc[:, ['Proceso', 'Aprobadas', 'Valor_Unidad', 'Valor_Total']]
 
 st.dataframe(data)
 
