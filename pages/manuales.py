@@ -68,6 +68,7 @@ df = df0.merge(calidad, how='left', left_on=['Mes', 'Quincena', 'Num_Documento',
 df = df.fillna(0)
 df['pendientes'] = df['asignados'] - df['recibidos']
 df['devueltas'] = df['recibidos'] - df['aprobadas']
+df['Num_Documento'] = df['Num_Documento'].astype('string')
 
 #Mes filter
 mes = st.selectbox(
