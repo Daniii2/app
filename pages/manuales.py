@@ -69,7 +69,6 @@ df = df.fillna(0)
 df['pendientes'] = df['asignados'] - df['recibidos']
 df['devueltas'] = df['recibidos'] - df['aprobadas']
 df['Num_Documento'] = df['Num_Documento'].astype('string')
-df = df.dropna()
 
 #Mes filter
 mes = st.selectbox(
@@ -89,6 +88,6 @@ st.write('Ingresaste:', num_documento)
 
 #Applying filters to dataframes
 data = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento'] == num_documento)]
-data = data.loc[:, ['Num_Documento', 'asignados', 'recibidos', 'pendientes', 'aprobadas', 'devueltas']]
+data = data.loc[:, ['Num_Documento', 'asignados', 'recibidos', 'pendientes', 'aprobadas', 'devueltas']].dropna()
 
 st.dataframe(data)
