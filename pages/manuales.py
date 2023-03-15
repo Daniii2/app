@@ -1,5 +1,19 @@
-import pandas as pd
+# streamlit_app.py
 
+import streamlit as st
+import pandas as pd
+from PIL import Image
+from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
+
+image = Image.open('pictures/logo.png')
+
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.write(' ')
+with col2:
+    st.image(image)
+with col3:
+    st.write(' ')
 p_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR1b55YBjl3Nx619-ZxcA1HFI4I-HKNEkj1e5mF4Ou_44Zttfjn0huUCPluDRdxoeMEZAZVJgU-AqFF/pub?gid=0&single=true&output=csv'
 l_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS38H6Hh28X9Xto3k1_TDV4h8GYp5xpYjvCk6Esl4ksp8PdjSFJdBoiP34j30g5-5tJr2upfXFnAGQb/pub?gid=0&single=true&output=csv'
 r_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTngRA1plSspUHCVtVh5eNJ-yI0kBGL7O204tsCF9D7Wzlkcqv3aW-I1Am7tzW4UsLFKHJ8H7wYD_jj/pub?gid=0&single=true&output=csv'
@@ -54,3 +68,24 @@ df = df0.merge(calidad, how='left', left_on=['Mes', 'Quincena', 'Num_Documento',
 df = df.fillna(0)
 df['pendientes'] = df['asignados'] - df['recibidos']
 df['devueltas'] = df['recibidos'] - df['aprobadas']
+
+#Mes filter
+mes = st.selectbox(
+    'Seleccione un mes',
+    list(set(df.Mes)))
+st.write('Seleccionaste:', mes)
+
+#Quincena filter
+quincena = st.selectbox(
+    'Seleccione una quincena',
+    list(set(df.Quincena)))
+st.write('Seleccionaste:', quincena)
+
+#Cedula text filter
+num_documento = st.text_input("Ingrese el número de documento a consultar", '')
+st.write('Ingresaste:', num_documento)
+
+#Applying filters to dataframes
+data = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento'] == num_documento)]
+
+st.dataframe(data)
