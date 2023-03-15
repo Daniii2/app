@@ -88,9 +88,7 @@ st.write('Ingresaste:', num_documento)
 
 #Applying filters to dataframes
 data = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento'] == num_documento)]
-data = data.set_index('Num_documento')
-#data = data.loc[:, ['asignados', 'recibidos', 'pendientes', 'aprobadas', 'devueltas']]
-
+data = data.loc[:, ['asignados', 'recibidos', 'pendientes', 'aprobadas', 'devueltas']]
 
 st.dataframe(data)
 
