@@ -21,17 +21,8 @@ c_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSv0ShIcmXQ9-mN_Vr6sZG
 p_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR1b55YBjl3Nx619-ZxcA1HFI4I-HKNEkj1e5mF4Ou_44Zttfjn0huUCPluDRdxoeMEZAZVJgU-AqFF/pub?gid=0&single=true&output=csv'
 m_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScaT6bvHkLPpetxUalJpZiM-1CF4fH3iKEw0oM4LiE7bhOuOQZ0fvTr20yD7qHYH3mLtgtghoDGyrj/pub?gid=0&single=true&output=csv'
 l_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS38H6Hh28X9Xto3k1_TDV4h8GYp5xpYjvCk6Esl4ksp8PdjSFJdBoiP34j30g5-5tJr2upfXFnAGQb/pub?gid=0&single=true&output=csv'
-
-#Calidad dataframe
-calidad = pd.read_csv(c_path, sep=',', header=0)
-calidad = calidad.dropna()
-calidad['Mos'] = calidad['Mos'].astype('int')
-calidad['Mos'] = calidad['Mos'].astype('string')
-calidad['IDProceso'] = calidad.Mos+calidad.Proceso
-#Procesos
-procesos = pd.read_csv(p_path, sep=',', header=0)
-procesos = procesos.dropna()
-procesos['IDProceso'] = procesos['IDProceso'].astype('string')
+r_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTngRA1plSspUHCVtVh5eNJ-yI0kBGL7O204tsCF9D7Wzlkcqv3aW-I1Am7tzW4UsLFKHJ8H7wYD_jj/pub?gid=0&single=true&output=csv'
+a_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTU-HZRHw6vg2wYcIYZFlNyF7sjYfZTfdJ5RGBdV1y-ix8bCy8HI38zxnMT_e7dpzUMNklHHLBhEXPw/pub?gid=0&single=true&output=csv'
 #Manuales
 manuales = pd.read_csv(m_path, sep=',', header=0)
 manuales['Nombre_Completo'] = manuales['Nombres']+' '+manuales['Apellidos']
@@ -39,14 +30,15 @@ manuales['Nombre_Completo'] = manuales['Nombres']+' '+manuales['Apellidos']
 llegadas = pd.read_csv(l_path, sep=',', header=0)
 llegadas['Mos'] = llegadas['Mos'].astype('int')
 llegadas['Mos'] = llegadas['Mos'].astype('string')
+#Recibidos
+recibidos = pd.read_csv(r_path, sep=',', header=0)
+recibidos['Mos'] = recibidos['Mos'].astype('int')
+recibidos['Mos'] = recibidos['Mos'].astype('string')
+#Asignaciomes
+asignaciones = pd.read_csv(a_path, sep=',', header=0)
+asignaciones['Mos'] = asignaciones['Mos'].astype('int')
+asignaciones['Mos'] = asignaciones['Mos'].astype('string')
 #Merge
-calidad_l = calidad.merge(llegadas, how='left', on=['Mos'])
-calidad_p = calidad_l.merge(procesos, how='left', left_on=['IDProceso'], right_on=['IDProceso'])
-df = calidad_p.merge(manuales, how='left', left_on=['Manual'], right_on=['Nombre_Completo'])
-#Transformations
-
-df['Num_Documento'] = df['Num_Documento'].astype('string')
-df['Valor_Total'] = df['Aprobadas'] * df['Costo']
 
 #Mes filter
 mes = st.selectbox(
