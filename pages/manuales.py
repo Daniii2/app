@@ -88,6 +88,6 @@ st.write('Ingresaste:', num_documento)
 
 #Applying filters to dataframes
 data = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento'] == num_documento)]
-data = data.loc[:, ['Num_Documento', 'asignados', 'recibidos', 'pendientes', 'aprobadas', 'devueltas']].dropna()
+data = data.loc[:, ['Num_Documento', 'asignados', 'recibidos', 'pendientes', 'aprobadas', 'devueltas']]
 
 st.dataframe(data)
