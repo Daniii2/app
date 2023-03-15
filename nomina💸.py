@@ -48,6 +48,8 @@ df3 = df2.merge(llegadas, how='left', left_on=['Mos_x'], right_on=['Mos'])
 
 df3['Num_Documento'] = df3['Num_Documento'].astype('string')
 df3['Valor_Total'] = df3['Aprobadas'] * df3['Costo']
+df3['Mes'] = df3['Mes'].astype('int')
+df3['Quincena'] = df3['Quincena'].astype('int')
 
 #Mes filter
 mes = st.selectbox(
