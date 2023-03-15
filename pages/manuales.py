@@ -91,3 +91,5 @@ data = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento
 data = data.loc[:, ['asignados', 'recibidos', 'pendientes', 'aprobadas', 'devueltas']]
 
 st.dataframe(data)
+
+st.table(data)
