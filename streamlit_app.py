@@ -42,8 +42,8 @@ llegadas = llegadas.loc[:, ['Mos', 'Referencia']]
 llegadas = llegadas.drop_duplicates()
 #Merge
 df = calidad.merge(manuales, how='inner', left_on=['Manual'], right_on=['Nombre_Completo'])
-df2 = df.merge(procesos, how='inner', on=['IDProceso'])
-df3 = df2.merge(llegadas, how='inner', left_on=['Mos_x'], right_on=['Mos'])
+df2 = df.merge(procesos, how='left', on=['IDProceso'])
+df3 = df2.merge(llegadas, how='left', left_on=['Mos_x'], right_on=['Mos'])
 #Transformations
 
 df3['Num_Documento'] = df3['Num_Documento'].astype('string')
