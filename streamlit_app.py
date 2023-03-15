@@ -15,23 +15,6 @@ with col2:
 with col3:
     st.write(' ')
 
-# streamlit_app.py
-
-import streamlit as st
-import pandas as pd
-from PIL import Image
-from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
-
-image = Image.open('pictures/logo.png')
-
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.write(' ')
-with col2:
-    st.image(image)
-with col3:
-    st.write(' ')
-
 #Paths
 c_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSv0ShIcmXQ9-mN_Vr6sZGZExejKYTqs2C22iMGbCwqbI2L_g9G2I4oyAphLmGQG3DM4I75nsc0o3OK/pub?gid=0&single=true&output=csv'
 p_path = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR1b55YBjl3Nx619-ZxcA1HFI4I-HKNEkj1e5mF4Ou_44Zttfjn0huUCPluDRdxoeMEZAZVJgU-AqFF/pub?gid=0&single=true&output=csv'
