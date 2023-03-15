@@ -38,25 +38,27 @@ manuales['Nombre_Completo'] = manuales['Nombres']+' '+manuales['Apellidos']
 llegadas = pd.read_csv(l_path, sep=',', header=0)
 llegadas['Mos'] = llegadas['Mos'].astype('int')
 llegadas['Mos'] = llegadas['Mos'].astype('string')
+llegadas = llegadas.loc[:, ['Mos', 'Referencia']]
+llegadas = llegadas.drop_duplicates()
 #Merge
-calidad_l = calidad.merge(llegadas, how='left', on=['Mos'])
-calidad_p = calidad_l.merge(procesos, how='left', left_on=['IDProceso'], right_on=['IDProceso'])
-df = calidad_p.merge(manuales, how='left', left_on=['Manual'], right_on=['Nombre_Completo'])
+df = calidad.merge(manuales, how='inner', left_on=['Manual'], right_on=['Nombre_Completo'])
+df2 = df.merge(procesos, how='inner', on=['IDProceso'])
+df3 = df2.merge(llegadas, how='inner', left_on=['Mos_x'], right_on=['Mos'])
 #Transformations
 
-df['Num_Documento'] = df['Num_Documento'].astype('string')
-df['Valor_Total'] = df['Aprobadas'] * df['Costo']
+df3['Num_Documento'] = df3['Num_Documento'].astype('string')
+df3['Valor_Total'] = df3['Aprobadas'] * df3['Costo']
 
 #Mes filter
 mes = st.selectbox(
     'Seleccione un mes',
-    list(set(df.Mes)))
+    list(set(df3.Mes)))
 st.write('Seleccionaste:', mes)
 
 #Quincena filter
 quincena = st.selectbox(
     'Seleccione una quincena',
-    list(set(df.Quincena)))
+    list(set(df3.Quincena)))
 st.write('Seleccionaste:', quincena)
 
 #Cedula text filter
@@ -64,8 +66,8 @@ num_documento = st.text_input("Ingrese el número de documento a consultar", '')
 st.write('Ingresaste:', num_documento)
 
 #Applying filters to dataframes
-df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento'] == num_documento)]
-data = df.loc[:, ['Proceso_x', 'Referencia', 'Aprobadas', 'Costo', 'Valor_Total']].rename(columns={'Proceso_x':'Proceso', 'Costo':'Valor_Unidad'})
+df3 = df3[(df['Mes'] == mes) & (df3['Quincena'] == quincena) & (df3['Num_Documento'] == num_documento)]
+data = df3.loc[:, ['Proceso_x', 'Referencia', 'Aprobadas', 'Costo', 'Valor_Total']].rename(columns={'Proceso_x':'Proceso', 'Costo':'Valor_Unidad'})
 
 col1, col2 = st.columns(2)
 with col1:
@@ -74,36 +76,3 @@ with col2:
     st.metric(label='Valor_Total', value=data['Valor_Total'].sum().astype('int'))
 
 st.dataframe(data)
-#Transformations
-
-df['Num_Documento'] = df['Num_Documento'].astype('string')
-df['Valor_Total'] = df['Aprobadas'] * df['Costo']
-
-#Mes filter
-mes = st.selectbox(
-    'Seleccione un mes',
-    list(set(df.Mes)))
-st.write('Seleccionaste:', mes)
-
-#Quincena filter
-quincena = st.selectbox(
-    'Seleccione una quincena',
-    list(set(df.Quincena)))
-st.write('Seleccionaste:', quincena)
-
-#Cedula text filter
-num_documento = st.text_input("Ingrese el número de documento a consultar", '')
-st.write('Ingresaste:', num_documento)
-
-#Applying filters to dataframes
-df = df[(df['Mes'] == mes) & (df['Quincena'] == quincena) & (df['Num_Documento'] == num_documento)]
-data = df.loc[:, ['Proceso_x', 'Referencia', 'Aprobadas', 'Costo', 'Valor_Total']].rename(columns={'Proceso_x':'Proceso', 'Costo':'Valor_Unidad'})
-
-col1, col2 = st.columns(2)
-with col1:
-    st.metric(label='Aprobadas', value=data['Aprobadas'].sum().astype('int'))
-with col2:
-    st.metric(label='Valor_Total', value=data['Valor_Total'].sum().astype('int'))
-
-st.dataframe(data)
-
