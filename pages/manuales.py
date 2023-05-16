@@ -71,10 +71,11 @@ df3['Pendientes'] = df3['Pendientes'].astype('int')
 col1, col2, col3 = st.columns(3)
 with col1:
     #Mes filter
-    mes = st.selectbox(
-        'Seleccione un mes',
+    options = st.multiselect(
+        'Seleccione un mes/meses',
         list(set(df3.Mes)))
-    st.write('Seleccionaste:', mes)
+    st.write('You selected:', options)
+    
 with col2:
     #Quincena filter
     quincena = st.selectbox(
