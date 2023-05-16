@@ -80,7 +80,7 @@ with col2:
     #Mes filter
     manual = st.selectbox(
         'Seleccione una manual/manuales',
-        df3.loc[df3['Mos'] == mos, df3['Manual']].sort_values().unique())
+        df3['Manual'].sort_values().unique())
     st.write('Seleccionaste:', manual)
 
 #Applying filters to dataframes
