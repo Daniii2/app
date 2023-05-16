@@ -69,7 +69,7 @@ st.write('Seleccionaste:', quincena)
 
 #Applying filters to dataframes
 data = df2.loc[(df2['Mes'] == mes) & (df2['Quincena'] == quincena), 
-              ['Manual', 'Valor_Total']].rename(columns={'Costo_Unidad':'Valor_Unidad', 'Aprobadas':'Unidades'})
+              ['Manual', 'Valor_Total']]
 
 data = data.groupby(['Manual']).sum().reset_index()
 
