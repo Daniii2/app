@@ -71,11 +71,10 @@ df3['Pendientes'] = df3['Pendientes'].astype('int')
 col1, col2, col3 = st.columns(3)
 with col1:
     #Mes filter
-    options = st.multiselect(
-        'Seleccione un mes/meses',
+    mes = st.selectbox(
+        'Seleccione un mes',
         list(set(df3.Mes)))
-    st.write('You selected:', options)
-
+    st.write('Seleccionaste:', mes)
 with col2:
     #Quincena filter
     quincena = st.selectbox(
@@ -90,7 +89,7 @@ with col3:
     st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
-data = df3.loc[(df3['Mes'] == options) & (df3['Quincena'] == quincena)]
+data = df3.loc[(df3['Mes'] == mes) & (df3['Quincena'] == quincena)]
 
 data = data.groupby(['Mes', 'Quincena', 'Manual', 'Referencia', 'Mos', 'Talla']).sum().reset_index()
 
