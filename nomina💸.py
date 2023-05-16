@@ -83,3 +83,4 @@ with col2:
     st.metric(label='Valor_Total', value=data['Valor_Total'].sum().astype('int'))
 
 st.dataframe(data)
+st.table(data)
