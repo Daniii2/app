@@ -74,7 +74,7 @@ with col1:
     manual = st.selectbox(
         'Seleccione una manual/manuales',
         list(set(df3.Manual)))
-    st.write('Seleccionaste:', manuales)
+    st.write('Seleccionaste:', manual)
 with col2:
     #Mos filter
     mos = st.selectbox(
