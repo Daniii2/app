@@ -70,17 +70,18 @@ df3['Pendientes'] = df3['Pendientes'].astype('int')
 
 col1, col2 = st.columns(2)
 with col1:
-    #Mes filter
-    manual = st.selectbox(
-        'Seleccione una manual/manuales',
-        df3['Manual'].sort_values().unique())
-    st.write('Seleccionaste:', manual)
-with col2:
     #Mos filter
     mos = st.selectbox(
         'Seleccione una Mos',
         df3['Mos'].sort_values().unique())
     st.write('Seleccionaste:', mos)
+
+with col2:
+    #Mes filter
+    manual = st.selectbox(
+        'Seleccione una manual/manuales',
+        df3.loc[df3['Mos'] == mos, df3['Manual']].sort_values().unique())
+    st.write('Seleccionaste:', manual)
 
 #Applying filters to dataframes
 data = df3.loc[(df3['Manual'] == manual) & (df3['Mos'] == mos),
