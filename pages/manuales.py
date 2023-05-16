@@ -68,20 +68,14 @@ df3['Aprobadas'] = df3['Aprobadas'].astype('int')
 df3['Devueltas'] = df3['Devueltas'].astype('int')
 df3['Pendientes'] = df3['Pendientes'].astype('int')
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 with col1:
     #Mes filter
-    mes = st.selectbox(
-        'Seleccione un mes',
-        list(set(df3.Mes)))
-    st.write('Seleccionaste:', mes)
+    manual = st.selectbox(
+        'Seleccione una manual/manuales',
+        list(set(df3.Manual)))
+    st.write('Seleccionaste:', manuales)
 with col2:
-    #Quincena filter
-    quincena = st.selectbox(
-        'Seleccione una quincena',
-        list(set(df3.Quincena)))
-    st.write('Seleccionaste:', quincena)
-with col3:
     #Mos filter
     mos = st.selectbox(
         'Seleccione una Mos',
@@ -89,9 +83,9 @@ with col3:
     st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
-data = df3.loc[(df3['Mes'] == mes) & (df3['Quincena'] == quincena)]
+data = df3.loc[(df3['Manual'] == manual) & (df3['Mos'] == mos)]
 
-data = data.groupby(['Mes', 'Quincena', 'Manual', 'Referencia', 'Mos', 'Talla']).sum().reset_index()
+data = data.groupby(['Manual', 'Referencia', 'Mos', 'Talla']).sum().reset_index()
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:
