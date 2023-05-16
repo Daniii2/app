@@ -68,23 +68,25 @@ df3['Aprobadas'] = df3['Aprobadas'].astype('int')
 df3['Devueltas'] = df3['Devueltas'].astype('int')
 df3['Pendientes'] = df3['Pendientes'].astype('int')
 
-#Mes filter
-mes = st.selectbox(
-    'Seleccione un mes',
-    list(set(df3.Mes)))
-st.write('Seleccionaste:', mes)
-
-#Quincena filter
-quincena = st.selectbox(
-    'Seleccione una quincena',
-    list(set(df3.Quincena)))
-st.write('Seleccionaste:', quincena)
-
-#Mos filter
-mos = st.selectbox(
-    'Seleccione una Mos',
-    list(set(df3.Mos)))
-st.write('Seleccionaste:', mos)
+col1, col2, col3 = st.columns(3)
+with col1:
+    #Mes filter
+    mes = st.selectbox(
+        'Seleccione un mes',
+        list(set(df3.Mes)))
+    st.write('Seleccionaste:', mes)
+with col2:
+    #Quincena filter
+    quincena = st.selectbox(
+        'Seleccione una quincena',
+        list(set(df3.Quincena)))
+    st.write('Seleccionaste:', quincena)
+with col3:
+    #Mos filter
+    mos = st.selectbox(
+        'Seleccione una Mos',
+        list(set(df3.Mos)))
+    st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
 data = df3.loc[(df3['Mes'] == mes) & (df3['Quincena'] == quincena)]
