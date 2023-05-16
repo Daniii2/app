@@ -73,6 +73,7 @@ with col1:
     #Mes filter
     manual = st.multiselect(
         'Seleccione una manual/manuales',
+        df3['Manual'].sort_values().unique(),
         df3['Manual'].sort_values().unique())
     st.write('Seleccionaste:', manual)
 with col2:
