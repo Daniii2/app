@@ -66,12 +66,9 @@ quincena = st.selectbox(
     list(set(df2.Quincena)))
 st.write('Seleccionaste:', quincena)
 
-#Cedula text filter
-num_documento = st.text_input("Ingrese el número de documento a consultar", '')
-st.write('Ingresaste:', num_documento)
 
 #Applying filters to dataframes
-data = df2.loc[(df2['Mes'] == mes) & (df2['Quincena'] == quincena) & (df2['Num_Documento'] == num_documento), 
+data = df2.loc[(df2['Mes'] == mes) & (df2['Quincena'] == quincena), 
               ['Referencia', 'Aprobadas', 'Costo_Unidad', 'Valor_Total']].rename(columns={'Costo_Unidad':'Valor_Unidad', 'Aprobadas':'Unidades'})
 
 data = data.groupby(['Referencia','Valor_Unidad']).sum().reset_index()
@@ -86,3 +83,17 @@ data['Valor_Unidad'] = data['Valor_Unidad'].astype('int')
 data['Valor_Total'] = data['Valor_Total'].astype('int')
 
 st.table(data)
+
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode('utf-8')
+
+csv = convert_df(data)
+
+st.download_button(
+    label="Descargar nómina",
+    data=csv,
+    file_name=f'nomina.csv',
+    mime='text/csv',
+)
