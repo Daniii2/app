@@ -66,6 +66,7 @@ df3['Asignadas'] = df3['Asignadas'].astype('int')
 df3['Entregadas'] = df3['Entregadas'].astype('int')
 df3['Aprobadas'] = df3['Aprobadas'].astype('int')
 df3['Devueltas'] = df3['Devueltas'].astype('int')
+df3['Pendientes'] = df3['Pendientes'].astype('int')
 
 #Mes filter
 mes = st.selectbox(
