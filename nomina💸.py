@@ -75,6 +75,7 @@ data = df2.loc[(df2['Mes'] == mes) & (df2['Quincena'] == quincena) & (df2['Num_D
               ['Referencia', 'Aprobadas', 'Costo_Unidad', 'Valor_Total']].rename(columns={'Costo_Unidad':'Valor_Unidad', 'Aprobadas':'Unidades'})
 
 data = data.groupby(['Referencia','Valor_Unidad']).sum().reset_index()
+data['Valor_Unidad'] = '$'+data['Valor_Unidad'].astype('int').astype('str')
 
 col1, col2 = st.columns(2)
 with col1:
@@ -82,4 +83,5 @@ with col1:
 with col2:
     st.metric(label='Valor_Total', value='$'+data['Valor_Total'].sum().astype('int').astype('str'))
 
-st.dataframe(data)
+#st.dataframe(data)
+st.tabla(data)
