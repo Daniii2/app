@@ -75,7 +75,6 @@ data = data.groupby(['Manual']).sum().reset_index()
 
 st.metric(label='Valor_Total', value='$'+data['Valor_Total'].sum().astype('int').astype('str'))
 
-data['Valor_Unidad'] = data['Valor_Unidad'].astype('int')
 data['Valor_Total'] = data['Valor_Total'].astype('int')
 
 st.table(data)
