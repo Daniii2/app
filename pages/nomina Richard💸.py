@@ -69,9 +69,9 @@ st.write('Seleccionaste:', quincena)
 
 #Applying filters to dataframes
 data = df2.loc[(df2['Mes'] == mes) & (df2['Quincena'] == quincena), 
-              ['Manual', 'Valor_Total']]
+              ['Manual', 'Num_Documento', 'Valor_Total']]
 
-data = data.groupby(['Manual']).sum().reset_index()
+data = data.groupby(['Manual', 'Num_Documento']).sum().reset_index()
 
 st.metric(label='Valor_Total', value='$'+data['Valor_Total'].sum().astype('int').astype('str'))
 
