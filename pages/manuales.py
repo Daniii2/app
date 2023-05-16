@@ -71,7 +71,7 @@ df3['Pendientes'] = df3['Pendientes'].astype('int')
 col1, col2 = st.columns(2)
 with col1:
     #Mes filter
-    manual = st.selectbox(
+    manual = st.multiselect(
         'Seleccione una manual/manuales',
         list(set(df3.Manual)))
     st.write('Seleccionaste:', manual)
