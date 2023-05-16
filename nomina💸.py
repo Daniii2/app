@@ -83,6 +83,7 @@ with col2:
     st.metric(label='Valor_Total', value='$'+data['Valor_Total'].sum().astype('int').astype('str'))
 
 data['Valor_Unidad'] = '$'+data['Valor_Unidad'].astype('int').astype('str')
+data['Valor_Total'] = '$'+data['Valor_Total'].astype('int').astype('str')
 
 #st.dataframe(data)
 st.table(data)
