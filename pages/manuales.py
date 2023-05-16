@@ -99,4 +99,4 @@ data = data.groupby(['Mes', 'Quincena', 'Manual', 'Referencia', 'Mos', 'Talla'])
 # with col2:
 #     st.metric(label='Valor_Total', value='$'+data['Valor_Total'].sum().astype('int').astype('str'))
 
-st.table(df3)
+st.table(data)
