@@ -80,6 +80,12 @@ quincena = st.selectbox(
     list(set(df3.Quincena)))
 st.write('Seleccionaste:', quincena)
 
+#Mos filter
+mos = st.selectbox(
+    'Seleccione una Mos',
+    list(set(df3.Mos)))
+st.write('Seleccionaste:', mos)
+
 #Applying filters to dataframes
 data = df3.loc[(df3['Mes'] == mes) & (df3['Quincena'] == quincena)]
 
