@@ -73,8 +73,7 @@ with col1:
     #Mes filter
     manual = st.multiselect(
         'Seleccione una manual/manuales',
-        list(set(df3.Manual)),
-        default=list(set(df3.Manual))[0])
+        df3['Manual'].unique())
     st.write('Seleccionaste:', manual)
 with col2:
     #Mos filter
