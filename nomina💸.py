@@ -74,7 +74,7 @@ st.write('Ingresaste:', num_documento)
 data = df2.loc[(df2['Mes'] == mes) & (df2['Quincena'] == quincena) & (df2['Num_Documento'] == num_documento), 
               ['Referencia', 'Aprobadas', 'Costo_Unidad', 'Valor_Total']].rename(columns={'Costo_Unidad':'Valor_Unidad', 'Aprobadas':'Unidades'})
 
-data = data.groupby(['Referencia', 'Costo_Unidad']).sum().reset_index()
+data = data.groupby(['Referencia','Valor_Unidad']).sum().reset_index()
 
 col1, col2 = st.columns(2)
 with col1:
