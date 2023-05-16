@@ -91,7 +91,7 @@ with col3:
 #Applying filters to dataframes
 data = df3.loc[(df3['Mes'] == mes) & (df3['Quincena'] == quincena)]
 
-# data = data.groupby(['Referencia','Valor_Unidad']).sum().reset_index()
+data = data.groupby(['Manual', 'Referencia', 'Mos', 'Talla']).sum().reset_index()
 
 # col1, col2 = st.columns(2)
 # with col1:
