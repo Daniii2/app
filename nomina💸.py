@@ -85,5 +85,18 @@ with col2:
 data['Valor_Unidad'] = data['Valor_Unidad'].astype('int')
 data['Valor_Total'] = data['Valor_Total'].astype('int')
 
-#st.dataframe(data)
 st.table(data)
+
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode('utf-8')
+
+csv = convert_df(data)
+
+st.download_button(
+    label="Descargar nómina",
+    data=csv,
+    file_name='large_df.csv',
+    mime='text/csv',
+)
