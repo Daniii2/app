@@ -5,7 +5,7 @@ import pandas as pd
 from PIL import Image
 from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
 
-image = Image.open('../pictures/logo.png')
+image = Image.open('pictures/logo.png')
 
 col1, col2, col3 = st.columns(3)
 with col1:
