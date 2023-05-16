@@ -80,6 +80,6 @@ col1, col2 = st.columns(2)
 with col1:
     st.metric(label='Unidades', value=data['Unidades'].sum().astype('int'))
 with col2:
-    st.metric(label='Valor_Total', value='$'+data['Valor_Total'].sum().astype('str'))
+    st.metric(label='Valor_Total', value='$'+data['Valor_Total'].sum().astype('int').astype('str'))
 
 st.dataframe(data)
