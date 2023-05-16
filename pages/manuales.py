@@ -75,7 +75,7 @@ with col1:
         'Seleccione un mes/meses',
         list(set(df3.Mes)))
     st.write('You selected:', options)
-    
+
 with col2:
     #Quincena filter
     quincena = st.selectbox(
@@ -90,7 +90,7 @@ with col3:
     st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
-data = df3.loc[(df3['Mes'] == mes) & (df3['Quincena'] == quincena)]
+data = df3.loc[(df3['Mes'] == options) & (df3['Quincena'] == quincena)]
 
 data = data.groupby(['Mes', 'Quincena', 'Manual', 'Referencia', 'Mos', 'Talla']).sum().reset_index()
 
