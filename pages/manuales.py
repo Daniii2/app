@@ -97,10 +97,10 @@ col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.metric(label='Asignadas', value=data['Asignadas'].sum().astype('int'))
 with col2:
-    st.metric(label='Entregadas', value=data['Entregadas'].astype('int'))
+    st.metric(label='Entregadas', value=data['Entregadas'].sum().astype('int'))
 with col3:
-    st.metric(label='Pendientes', value=data['Pendientes'].astype('int'))
+    st.metric(label='Pendientes', value=data['Pendientes'].sum().astype('int'))
 with col4:
-    st.metric(label='Devueltas', value=data['Devueltas'].astype('int'))
+    st.metric(label='Devueltas', value=data['Devueltas'].sum().astype('int'))
 
 st.table(data)
