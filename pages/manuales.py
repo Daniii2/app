@@ -62,7 +62,10 @@ df3 = df3.fillna(0)
 df3['Pendientes'] = df3['Asignadas'] - df3['Entregadas']
 df3['Mes'] = df3['Mes'].astype('int')
 df3['Quincena'] = df3['Quincena'].astype('int')
-
+df3['Cantidad'] = df3['Cantidad'].astype('int')
+df3['Entregadas'] = df3['Entregadas'].astype('int')
+df3['Aprobadas'] = df3['Aprobadas'].astype('int')
+df3['Devueltas'] = df3['Devueltas'].astype('int')
 #Mes filter
 mes = st.selectbox(
     'Seleccione un mes',
