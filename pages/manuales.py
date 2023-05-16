@@ -83,7 +83,8 @@ with col2:
     st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
-data = df3.loc[(df3['Manual'] == manual) & (df3['Mos'] == mos)]
+data = df3.loc[(df3['Manual'] == manual) & (df3['Mos'] == mos),
+               ['Manual', 'Referencia', 'Mos', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
 
 data = data.groupby(['Manual', 'Referencia', 'Mos', 'Talla']).sum().reset_index()
 
