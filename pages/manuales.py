@@ -53,7 +53,7 @@ llegadas = llegadas.drop_duplicates(keep='last')
 #Merge
 df = asignaciones.merge(calidad, how='left', left_on=['Manual', 'Mos', 'Talla'], right_on=['Manual', 'Mos', 'Talla'])
 df2 = df.merge(manuales, how='inner', left_on=['Manual'], right_on=['Nombre_Completo'])
-df3 = df.merge(llegadas, how='inner', left_on=['Mos', 'Talla'], right_on=['Mos', 'Talla'])
+df3 = df.merge(llegadas, how='inner', left_on=['Mos', 'Talla_x'], right_on=['Mos', 'Talla'])
 print(df3.columns)
 df3 = df3.loc[:, ['Mes_x', 'Quincena_x', 'C_llegadas', 'Manual', 'Referencia', 'Mos', 'Talla', 'Cantidad', 'Entregadas', 'Aprobadas', 'Devueltas']].rename(
     columns={'Mes_x':'Mes', 'Quincena_x':'Quincena', 'Cantidad':'Asignadas'})
