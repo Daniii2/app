@@ -68,23 +68,13 @@ df3['Aprobadas'] = df3['Aprobadas'].astype('int')
 df3['Devueltas'] = df3['Devueltas'].astype('int')
 df3['Pendientes'] = df3['Pendientes'].astype('int')
 
-col1, col2 = st.columns(2)
-with col1:
-    #Mos filter
-    mos = st.selectbox(
+mos = st.multiselect(
         'Seleccione una Mos',
         df3['Mos'].sort_values().unique())
-    st.write('Seleccionaste:', mos)
-
-with col2:
-    #Mes filter
-    manual = st.selectbox(
-        'Seleccione una manual/manuales',
-        df3['Manual'].sort_values().unique())
-    st.write('Seleccionaste:', manual)
+st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
-data = df3.loc[(df3['Manual'] == manual) & (df3['Mos'] == mos),
+data = df3.loc[df3['Mos'] == mos,
                ['Manual', 'Referencia', 'Mos', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
 
 data = data.groupby(['Manual', 'Referencia', 'Mos', 'Talla']).sum().reset_index()
