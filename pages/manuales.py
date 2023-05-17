@@ -75,7 +75,7 @@ st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
 data = df3.loc[df3['Mos']==mos,
-               ['Manual', 'Referencia', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
+               ['Mos', 'Manual', 'Referencia', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
 
 data = data.groupby(['Manual', 'Referencia', 'Mos', 'Talla']).sum().reset_index()
 
