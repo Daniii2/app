@@ -5,7 +5,7 @@ import pandas as pd
 from PIL import Image
 from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
 
-image = Image.open('pictures/logo.png')
+image = Image.open('../pictures/logo.png')
 
 col1, col2, col3 = st.columns(3)
 with col1:
@@ -28,12 +28,14 @@ calidad = pd.read_csv(c_path, sep=',', header=0)
 calidad = calidad.dropna()
 calidad['Mos'] = calidad['Mos'].astype('int')
 calidad['Mos'] = calidad['Mos'].astype('string')
+calidad = calidad.loc[:, ['Manual', 'Mos', 'Talla', 'Entregadas', 'Aprobadas', 'Devueltas']].groupby(['Manual', 'Mos', 'Talla']).sum().reset_index()
 
 #Asignaciones
 asignaciones = pd.read_csv(a_path, sep=',', header=0)
 asignaciones = asignaciones.dropna()
 asignaciones['Mos'] = asignaciones['Mos'].astype('int')
 asignaciones['Mos'] = asignaciones['Mos'].astype('string')
+asignaciones = asignaciones.loc[:, ['Manual', 'Mos', 'Talla', 'Cantidad']].groupby(['Manual', 'Mos', 'Talla']).sum().reset_index()
 
 #Llegadas
 llegadas = pd.read_csv(l_path, sep=',', header=0)
@@ -45,14 +47,12 @@ llegadas = llegadas.drop_duplicates(keep='last')
 
 #Merge
 df = asignaciones.merge(calidad, how='left', left_on=['Manual', 'Mos', 'Talla'], right_on=['Manual', 'Mos', 'Talla'])
-df2 = df.loc[:, ['Mes_x', 'Quincena_x', 'Manual', 'Mos', 'Talla', 'Cantidad', 'Entregadas', 'Aprobadas', 'Devueltas']].rename(
-    columns={'Mes_x':'Mes', 'Quincena_x':'Quincena', 'Cantidad':'Asignadas'})
+df2 = df.loc[:, ['Manual', 'Mos', 'Talla', 'Cantidad', 'Entregadas', 'Aprobadas', 'Devueltas']].rename(
+    columns={'Cantidad':'Asignadas'})
 df3 = df2.fillna(0)
 
 #Transformations
 df3['Pendientes'] = df3['Asignadas'] - df3['Entregadas']
-df3['Mes'] = df3['Mes'].astype('int')
-df3['Quincena'] = df3['Quincena'].astype('int')
 df3['Asignadas'] = df3['Asignadas'].astype('int')
 df3['Entregadas'] = df3['Entregadas'].astype('int')
 df3['Aprobadas'] = df3['Aprobadas'].astype('int')
@@ -66,9 +66,7 @@ st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
 data = df3.loc[df3['Mos']==mos,
-               ['Mos', 'Manual', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
-
-data = data.groupby(['Manual', 'Mos', 'Talla']).sum().reset_index()
+               ['Manual', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:
