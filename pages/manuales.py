@@ -47,7 +47,7 @@ llegadas = pd.read_csv(l_path, sep=',', header=0)
 llegadas['Mos'] = llegadas['Mos'].astype('int')
 llegadas['Mos'] = llegadas['Mos'].astype('string')
 llegadas = llegadas.dropna()
-llegadas = llegadas.loc[:, ['Mos', 'Referencia', 'Cantidad', 'Costo_Unidad']].rename(columns={'Cantidad':'C_Llegadas'})
+llegadas = llegadas.loc[:, ['Mos', 'Referencia', 'Cantidad', 'Costo_Unidad']].rename(columns={'Cantidad':'C_llegadas'})
 llegadas = llegadas.drop_duplicates(keep='last')
 
 #Merge
@@ -76,8 +76,8 @@ mos = st.selectbox(
 st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
-data = df3.loc[df3['Mos'].isin(mos),
-               ['C_llegadas', 'Manual', 'Referencia', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
+data = df3.loc[df3['Mos'] == mos,
+               ['C_llegadas', 'Manual', 'Referencia', 'Mos', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
 
 data = data.groupby(['Manual', 'Referencia', 'Mos', 'Talla']).sum().reset_index()
 
