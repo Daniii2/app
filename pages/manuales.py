@@ -71,7 +71,6 @@ df3['Pendientes'] = df3['Pendientes'].astype('int')
 mos = st.multiselect(
         'Seleccione una o varias Mos',
         df3['Mos'].sort_values().unique())
-st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
 data = df3.loc[df3['Mos'].isin(mos),
