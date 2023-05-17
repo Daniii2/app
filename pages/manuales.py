@@ -69,12 +69,12 @@ df3['Devueltas'] = df3['Devueltas'].astype('int')
 df3['Pendientes'] = df3['Pendientes'].astype('int')
 
 mos = st.multiselect(
-        'Seleccione una Mos',
+        'Seleccione una o varias Mos',
         df3['Mos'].sort_values().unique())
 st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
-data = df3.loc[df3['Mos'] == mos,
+data = df3.loc[df3['Mos'].isin(mos),
                ['Manual', 'Referencia', 'Mos', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
 
 data = data.groupby(['Manual', 'Referencia', 'Mos', 'Talla']).sum().reset_index()
