@@ -47,14 +47,15 @@ llegadas = pd.read_csv(l_path, sep=',', header=0)
 llegadas['Mos'] = llegadas['Mos'].astype('int')
 llegadas['Mos'] = llegadas['Mos'].astype('string')
 llegadas = llegadas.dropna()
-llegadas = llegadas.loc[:, ['Mos', 'Referencia', 'Costo_Unidad']]
+llegadas = llegadas.loc[:, ['Mos', 'Referencia', 'Cantidad', 'Costo_Unidad']].rename(columns={'Cantidad':'C_Llegadas'})
 llegadas = llegadas.drop_duplicates(keep='last')
 
 #Merge
 df = asignaciones.merge(calidad, how='left', left_on=['Manual', 'Mos', 'Talla'], right_on=['Manual', 'Mos', 'Talla'])
 df2 = df.merge(manuales, how='inner', left_on=['Manual'], right_on=['Nombre_Completo'])
 df3 = df.merge(llegadas, how='inner', left_on=['Mos'], right_on=['Mos'])
-df3 = df3.loc[:, ['Mes_x', 'Quincena_x', 'Manual', 'Referencia', 'Mos', 'Talla', 'Cantidad', 'Entregadas', 'Aprobadas', 'Devueltas']].rename(
+print(df3.columns)
+df3 = df3.loc[:, ['Mes_x', 'Quincena_x', 'C_llegadas', 'Manual', 'Referencia', 'Mos', 'Talla', 'Cantidad', 'Entregadas', 'Aprobadas', 'Devueltas']].rename(
     columns={'Mes_x':'Mes', 'Quincena_x':'Quincena', 'Cantidad':'Asignadas'})
 df3 = df3.fillna(0)
 
@@ -62,30 +63,33 @@ df3 = df3.fillna(0)
 df3['Pendientes'] = df3['Asignadas'] - df3['Entregadas']
 df3['Mes'] = df3['Mes'].astype('int')
 df3['Quincena'] = df3['Quincena'].astype('int')
+df3['C_llegadas'] = df3['C_llegadas'].astype('int')
 df3['Asignadas'] = df3['Asignadas'].astype('int')
 df3['Entregadas'] = df3['Entregadas'].astype('int')
 df3['Aprobadas'] = df3['Aprobadas'].astype('int')
 df3['Devueltas'] = df3['Devueltas'].astype('int')
 df3['Pendientes'] = df3['Pendientes'].astype('int')
 
-mos = st.multiselect(
-        'Seleccione una o varias Mos',
+mos = st.selectbox(
+        'Seleccione una Mos',
         df3['Mos'].sort_values().unique())
+st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
 data = df3.loc[df3['Mos'].isin(mos),
-               ['Manual', 'Referencia', 'Mos', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
+               ['C_llegadas', 'Manual', 'Referencia', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
 
 data = data.groupby(['Manual', 'Referencia', 'Mos', 'Talla']).sum().reset_index()
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3= st.columns(3)
 with col1:
     st.metric(label='Asignadas', value=data['Asignadas'].sum().astype('int'))
 with col2:
     st.metric(label='Entregadas', value=data['Entregadas'].sum().astype('int'))
 with col3:
     st.metric(label='Pendientes', value=data['Pendientes'].sum().astype('int'))
-with col4:
-    st.metric(label='Devueltas', value=data['Devueltas'].sum().astype('int'))
+col1, col2, col3= st.columns(3)
+with col1:
+    st.metric(label='Llegadas', value=data['C_llegadas'].sum().astype('int'))
 
 st.table(data)
