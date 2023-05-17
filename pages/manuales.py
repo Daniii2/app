@@ -35,13 +35,6 @@ asignaciones = asignaciones.dropna()
 asignaciones['Mos'] = asignaciones['Mos'].astype('int')
 asignaciones['Mos'] = asignaciones['Mos'].astype('string')
 
-#Manuales
-manuales = pd.read_csv(m_path, sep=',', header=0)
-manuales['Nombre_Completo'] = manuales['Nombres']+' '+manuales['Apellidos']
-manuales = manuales.dropna()
-manuales = manuales.drop_duplicates(keep='last')
-manuales = manuales.loc[:, ['Nombre_Completo', 'Num_Documento']]
-
 #Llegadas
 llegadas = pd.read_csv(l_path, sep=',', header=0)
 llegadas['Mos'] = llegadas['Mos'].astype('int')
@@ -52,11 +45,9 @@ llegadas = llegadas.drop_duplicates(keep='last')
 
 #Merge
 df = asignaciones.merge(calidad, how='left', left_on=['Manual', 'Mos', 'Talla'], right_on=['Manual', 'Mos', 'Talla'])
-df2 = df.merge(manuales, how='inner', left_on=['Manual'], right_on=['Nombre_Completo'])
-df3 = df.merge(llegadas, how='inner', left_on=['Mos'], right_on=['Mos'])
-df3 = df3.loc[:, ['Mes_x', 'Quincena_x', 'Manual', 'Referencia', 'Mos', 'Talla', 'Cantidad', 'Entregadas', 'Aprobadas', 'Devueltas']].rename(
+df2 = df.loc[:, ['Mes_x', 'Quincena_x', 'Manual', 'Referencia', 'Mos', 'Talla', 'Cantidad', 'Entregadas', 'Aprobadas', 'Devueltas']].rename(
     columns={'Mes_x':'Mes', 'Quincena_x':'Quincena', 'Cantidad':'Asignadas'})
-df3 = df3.fillna(0)
+df3 = df2.fillna(0)
 
 #Transformations
 df3['Pendientes'] = df3['Asignadas'] - df3['Entregadas']
@@ -75,9 +66,9 @@ st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
 data = df3.loc[df3['Mos']==mos,
-               ['Mos', 'Manual', 'Referencia', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
+               ['Mos', 'Manual', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
 
-data = data.groupby(['Manual', 'Referencia', 'Mos', 'Talla']).sum().reset_index()
+data = data.groupby(['Manual', 'Mos', 'Talla']).sum().reset_index()
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:
