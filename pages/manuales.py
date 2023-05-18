@@ -67,7 +67,7 @@ st.write('Seleccionaste:', mos)
 data = df3.loc[df3['Mos']==mos,
                ['Manual', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
 
-data = data.reset_index()
+data = data.reset_index(drop=True)
 
 llegadas = llegadas.loc[llegadas['Mos']==mos]
 
