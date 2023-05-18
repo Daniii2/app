@@ -91,7 +91,7 @@ with col2:
 with col3:
     st.metric(label='Pendientes', value=data['Pendientes'].sum().astype('int'))
 
-csv = convert_df(data.sort_values(by='Pendientes', ascending=False))
+csv = convert_df(data)
 
 st.download_button(
     label="Descargar Informe Manuales",
