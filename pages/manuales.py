@@ -5,6 +5,11 @@ import pandas as pd
 from PIL import Image
 from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
 
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv(encoding='ascii', index=False)
+
 image = Image.open('pictures/logo.png')
 
 col1, col2, col3 = st.columns(3)
@@ -67,7 +72,7 @@ st.write('Seleccionaste:', mos)
 data = df3.loc[df3['Mos']==mos,
                ['Manual', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
 
-data = data.reset_index(drop=True)
+data = data.reset_index(drop=True).sort_values(by='Pendientes', ascending=False)
 
 llegadas = llegadas.loc[llegadas['Mos']==mos]
 
@@ -86,13 +91,6 @@ with col2:
 with col3:
     st.metric(label='Pendientes', value=data['Pendientes'].sum().astype('int'))
 
-st.table(data)
-
-@st.cache
-def convert_df(df):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df.to_csv(encoding='ascii', index=False)
-
 csv = convert_df(data)
 
 st.download_button(
@@ -101,3 +99,5 @@ st.download_button(
     file_name=f'manuales.csv',
     mime='text/csv',
 )
+
+st.table(data)
