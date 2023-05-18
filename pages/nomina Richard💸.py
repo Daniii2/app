@@ -35,9 +35,9 @@ calidad['Mos'] = calidad['Mos'].astype('string')
 #Manuales
 manuales = pd.read_csv(m_path, sep=',', header=0)
 manuales['Nombre_Completo'] = manuales['Nombres']+' '+manuales['Apellidos']
+manuales = manuales.loc[:, ['Nombre_Completo', 'Num_Documento']]
 manuales = manuales.dropna()
 manuales = manuales.drop_duplicates(keep='last')
-manuales = manuales.loc[:, ['Nombre_Completo', 'Num_Documento']]
 
 #Llegadas
 llegadas = pd.read_csv(l_path, sep=',', header=0)
@@ -49,7 +49,7 @@ llegadas = llegadas.drop_duplicates(keep='last')
 
 #Merge
 df = calidad.merge(manuales, how='inner', left_on=['Manual'], right_on=['Nombre_Completo'])
-df2 = df.merge(llegadas, how='inner', left_on=['Mos'], right_on=['Mos'])
+df2 = df.merge(llegadas, how='left', left_on=['Mos'], right_on=['Mos'])
 
 #Transformations
 
