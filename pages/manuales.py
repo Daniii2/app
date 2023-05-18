@@ -42,8 +42,7 @@ llegadas = pd.read_csv(l_path, sep=',', header=0)
 llegadas['Mos'] = llegadas['Mos'].astype('int')
 llegadas['Mos'] = llegadas['Mos'].astype('string')
 llegadas = llegadas.dropna()
-llegadas = llegadas.loc[:, ['Mos', 'Referencia', 'Costo_Unidad']]
-llegadas = llegadas.drop_duplicates(keep='last')
+llegadas = llegadas.loc[:, ['Mos', 'Cantidad']].groupby('Mos').sum().reset_index()
 
 #Merge
 df = asignaciones.merge(calidad, how='left', left_on=['Manual', 'Mos', 'Talla'], right_on=['Manual', 'Mos', 'Talla'])
@@ -68,14 +67,21 @@ st.write('Seleccionaste:', mos)
 data = df3.loc[df3['Mos']==mos,
                ['Manual', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
 
-col1, col2, col3, col4 = st.columns(4)
+llegadas = llegadas.loc[llegadas['Mos']==mos]
+
+col1, col2, col3 = st.columns(3)
 with col1:
-    st.metric(label='Asignadas', value=data['Asignadas'].sum().astype('int'))
+    st.metric(label='Llegadas', value=llegadas['Cantidad'].sum().astype('int'))
 with col2:
-    st.metric(label='Entregadas', value=data['Entregadas'].sum().astype('int'))
+    st.metric(label='Asignadas', value=data['Asignadas'].sum().astype('int'))
 with col3:
+    st.metric(label='PPAsignar', value=(llegadas['Cantidad'].sum().astype('int') - data['Asignadas'].sum().astype('int')))
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.metric(label='Entregadas', value=data['Entregadas'].sum().astype('int'))
+with col2:
     st.metric(label='Pendientes', value=data['Pendientes'].sum().astype('int'))
-with col4:
+with col3:
     st.metric(label='Devueltas', value=data['Devueltas'].sum().astype('int'))
 
 st.table(data)
