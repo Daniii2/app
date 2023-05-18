@@ -65,7 +65,9 @@ st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
 data = df3.loc[df3['Mos']==mos,
-               ['Manual', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']].reset_index()
+               ['Manual', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
+
+data = data.reset_index()
 
 llegadas = llegadas.loc[llegadas['Mos']==mos]
 
@@ -89,7 +91,7 @@ st.table(data)
 @st.cache
 def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df.to_csv(encoding='ascii')
+    return df.to_csv(encoding='ascii', index=False)
 
 csv = convert_df(data)
 
