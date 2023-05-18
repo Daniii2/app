@@ -5,6 +5,11 @@ import pandas as pd
 from PIL import Image
 from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
 
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv(encoding='ascii', index=False)
+
 image = Image.open('pictures/logo.png')
 
 col1, col2, col3 = st.columns(3)
@@ -77,13 +82,6 @@ st.metric(label='Valor_Total', value='$'+data['Valor_Total'].sum().astype('int')
 
 data['Valor_Total'] = data['Valor_Total'].astype('int')
 
-st.table(data)
-
-@st.cache
-def convert_df(df):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df.to_csv(encoding='ascii')
-
 csv = convert_df(data)
 
 st.download_button(
@@ -92,3 +90,5 @@ st.download_button(
     file_name=f'nomina.csv',
     mime='text/csv',
 )
+
+st.table(data)
