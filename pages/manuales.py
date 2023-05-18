@@ -75,13 +75,13 @@ with col1:
 with col2:
     st.metric(label='Asignadas', value=data['Asignadas'].sum().astype('int'))
 with col3:
-    st.metric(label='PPAsignar', value=(llegadas['Cantidad'].sum().astype('int') - data['Asignadas'].sum().astype('int')))
+    st.metric(label='Por Asignar', value=(llegadas['Cantidad'].sum().astype('int') - data['Asignadas'].sum().astype('int')))
 col1, col2, col3 = st.columns(3)
 with col1:
     st.metric(label='Entregadas', value=data['Entregadas'].sum().astype('int'))
 with col2:
-    st.metric(label='Pendientes', value=data['Pendientes'].sum().astype('int'))
-with col3:
     st.metric(label='Devueltas', value=data['Devueltas'].sum().astype('int'))
+with col3:
+    st.metric(label='Pendientes', value=data['Pendientes'].sum().astype('int'))
 
 st.table(data)
