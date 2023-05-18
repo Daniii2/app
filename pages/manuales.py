@@ -65,7 +65,7 @@ st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
 data = df3.loc[df3['Mos']==mos,
-               ['Manual', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']]
+               ['Manual', 'Talla', 'Asignadas', 'Entregadas', 'Aprobadas', 'Devueltas', 'Pendientes']].reset_index()
 
 llegadas = llegadas.loc[llegadas['Mos']==mos]
 
@@ -85,3 +85,17 @@ with col3:
     st.metric(label='Pendientes', value=data['Pendientes'].sum().astype('int'))
 
 st.table(data)
+
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv(encoding='ascii')
+
+csv = convert_df(data)
+
+st.download_button(
+    label="Descargar Informe Manuales",
+    data=csv,
+    file_name=f'manuales.csv',
+    mime='text/csv',
+)
