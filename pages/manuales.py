@@ -55,7 +55,7 @@ df2 = df.loc[:, ['Manual', 'Mos', 'Talla', 'Cantidad', 'Entregadas', 'Aprobadas'
 df3 = df2.fillna(0)
 
 #Transformations
-df3['Pendientes'] = df3['Asignadas'] - df3['Entregadas']
+df3['Pendientes'] = df3['Asignadas'] - df3['Aprobadas']
 df3['Asignadas'] = df3['Asignadas'].astype('int')
 df3['Entregadas'] = df3['Entregadas'].astype('int')
 df3['Aprobadas'] = df3['Aprobadas'].astype('int')
