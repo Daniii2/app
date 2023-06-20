@@ -64,7 +64,7 @@ df3['Pendientes'] = df3['Pendientes'].astype('int')
 
 mos = st.selectbox(
         'Seleccione una Mos',
-        df3['Mos'].sort_values().unique())
+        list(set(df3.Mos)))
 st.write('Seleccionaste:', mos)
 
 #Applying filters to dataframes
